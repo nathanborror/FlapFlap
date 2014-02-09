@@ -15,9 +15,8 @@ static const uint32_t kPipeCategory = 0x1 << 1;
 static const uint32_t kGroundCategory = 0x1 << 2;
 
 static const CGFloat kGravity = -10;
-static const CGFloat kThrust = 50;
-static const CGFloat kDensity = 1.5;
-
+static const CGFloat kDensity = 1.15;
+static const CGFloat kMaxVelocity = 400;
 static const CGFloat kObstacleSpeed = 6;
 
 @implementation MainScene {
@@ -61,6 +60,8 @@ static const CGFloat kObstacleSpeed = 6;
 
   _player.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:_player.size];
   [_player.physicsBody setDensity:kDensity];
+  [_player.physicsBody setAllowsRotation:NO];
+
   [_player.physicsBody setCategoryBitMask:kPlayerCategory];
   [_player.physicsBody setContactTestBitMask:kPipeCategory | kGroundCategory];
   [_player.physicsBody setCollisionBitMask:kGroundCategory];
@@ -97,7 +98,6 @@ static const CGFloat kObstacleSpeed = 6;
   // Move bottom pipe
   SKAction *pipeBottomAction = [SKAction moveToX:-(_pipeBottom.size.width/2) duration:kObstacleSpeed];
   SKAction *pipeBottomSequence = [SKAction sequence:@[pipeBottomAction, [SKAction runBlock:^{
-//    [_pipeBottom setPosition:CGPointMake(self.size.width+(_pipeBottom.size.width/2), self.size.height-(_pipeBottom.size.height/2))];
     [_pipeBottom setPosition:CGPointMake(self.size.width+(_pipeBottom.size.width/2), (_pipeBottom.size.height/2))];
   }]]];
 
@@ -106,7 +106,14 @@ static const CGFloat kObstacleSpeed = 6;
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
-  [_player.physicsBody applyImpulse:CGVectorMake(0, kThrust)];
+  [_player.physicsBody setVelocity:CGVectorMake(_player.physicsBody.velocity.dx, kMaxVelocity)];
+}
+
+- (void)update:(NSTimeInterval)currentTime
+{
+  if (_player.physicsBody.velocity.dy > kMaxVelocity) {
+    [_player.physicsBody setVelocity:CGVectorMake(_player.physicsBody.velocity.dx, kMaxVelocity)];
+  }
 }
 
 @end
