@@ -39,6 +39,8 @@ static const CGFloat randomFloat(CGFloat Min, CGFloat Max){
   NSInteger _score;
   NSTimer *_pipeTimer;
   NSTimer *_scoreTimer;
+  SKAction *_pipeSound;
+  SKAction *_punchSound;
 }
 
 - (id)initWithSize:(CGSize)size
@@ -83,6 +85,10 @@ static const CGFloat randomFloat(CGFloat Min, CGFloat Max){
     _pipeTimer = [NSTimer scheduledTimerWithTimeInterval:kPipeFrequency target:self selector:@selector(addObstacle) userInfo:nil repeats:YES];
 
     [NSTimer scheduledTimerWithTimeInterval:kPipeFrequency target:self selector:@selector(startScoreTimer) userInfo:nil repeats:NO];
+      
+    _pipeSound = [SKAction playSoundFileNamed:@"pipe.mp3" waitForCompletion:NO];
+    _punchSound = [SKAction playSoundFileNamed:@"punch3.mp3" waitForCompletion:NO];
+      
   }
   return self;
 }
@@ -162,6 +168,7 @@ static const CGFloat randomFloat(CGFloat Min, CGFloat Max){
 {
   _score++;
   [_scoreLabel setText:[NSString stringWithFormat:@"%@", [NSNumber numberWithInteger:_score]]];
+  [self runAction:_pipeSound];
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
@@ -182,10 +189,11 @@ static const CGFloat randomFloat(CGFloat Min, CGFloat Max){
   if ([node isKindOfClass:[Player class]]) {
     [_pipeTimer invalidate];
     [_scoreTimer invalidate];
-
-    SKTransition *transition = [SKTransition doorsCloseHorizontalWithDuration:.4];
-    NewGameScene *newGame = [[NewGameScene alloc] initWithSize:self.size];
-    [self.scene.view presentScene:newGame transition:transition];
+    [self runAction:_punchSound completion:^{
+      SKTransition *transition = [SKTransition doorsCloseHorizontalWithDuration:.4];
+      NewGameScene *newGame = [[NewGameScene alloc] initWithSize:self.size];
+      [self.scene.view presentScene:newGame transition:transition];
+    }];
   }
 }
 
