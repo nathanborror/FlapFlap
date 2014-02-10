@@ -24,8 +24,10 @@ static const CGFloat kPipeWidth = 64;
 static const CGFloat kPipeGap = 110;
 static const CGFloat kPipeFrequency = 2;
 
+static const NSInteger kNumLevels = 20;
+
 static const CGFloat randomFloat(CGFloat Min, CGFloat Max){
-  return floor(((arc4random() % RAND_MAX) / (RAND_MAX * 1.0)) * (Max - Min) + Min);
+  return floor(((rand() % RAND_MAX) / (RAND_MAX * 1.0)) * (Max - Min) + Min);
 }
 
 @implementation MainScene {
@@ -33,10 +35,13 @@ static const CGFloat randomFloat(CGFloat Min, CGFloat Max){
   SKSpriteNode *_ground;
   SKLabelNode *_scoreLabel;
   NSInteger _score;
+  NSTimer *_pipeTimer;
+  NSTimer *_scoreTimer;
 }
 
 - (id)initWithSize:(CGSize)size
 {
+  srand(time(nil) % kNumLevels);
   if (self = [super initWithSize:size]) {
     _score = 0;
 
@@ -62,8 +67,8 @@ static const CGFloat randomFloat(CGFloat Min, CGFloat Max){
 
     [self setupPlayer];
 
-    [NSTimer scheduledTimerWithTimeInterval:kPipeFrequency target:self selector:@selector(addObstacle) userInfo:nil repeats:YES];
-    [NSTimer scheduledTimerWithTimeInterval:kPipeFrequency target:self selector:@selector(startScoreTimer) userInfo:nil repeats:nil];
+    _scoreTimer = [NSTimer scheduledTimerWithTimeInterval:kPipeFrequency target:self selector:@selector(startScoreTimer) userInfo:nil repeats:YES];
+    _pipeTimer = [NSTimer scheduledTimerWithTimeInterval:kPipeFrequency target:self selector:@selector(addObstacle) userInfo:nil repeats:YES];
   }
   return self;
 }
@@ -157,6 +162,8 @@ static const CGFloat randomFloat(CGFloat Min, CGFloat Max){
 {
   SKNode *node = contact.bodyA.node;
   if ([node isKindOfClass:[Player class]]) {
+    [_pipeTimer invalidate];
+    [_scoreTimer invalidate];
     SKTransition *transition = [SKTransition doorsCloseHorizontalWithDuration:.4];
     NewGameScene *newGame = [[NewGameScene alloc] initWithSize:self.size];
     [self.scene.view presentScene:newGame transition:transition];
