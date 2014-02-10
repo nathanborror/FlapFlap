@@ -7,7 +7,11 @@
 //
 
 #import <SpriteKit/SpriteKit.h>
+#import <AVFoundation/AVFoundation.h>
 
 @interface MainScene : SKScene <SKPhysicsContactDelegate>
+
+@property (strong, nonatomic) SKAction *pipeSound;
+@property (strong, nonatomic) SKAction *punchSound;
 
 @end
