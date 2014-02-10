@@ -11,7 +11,4 @@
 
 @interface MainScene : SKScene <SKPhysicsContactDelegate>
 
-@property (strong, nonatomic) SKAction *pipeSound;
-@property (strong, nonatomic) SKAction *punchSound;
-
 @end
