@@ -17,26 +17,30 @@ static const uint32_t kGroundCategory = 0x1 << 2;
 static const CGFloat kGravity = -10;
 static const CGFloat kDensity = 1.15;
 static const CGFloat kMaxVelocity = 400;
-static const CGFloat kObstacleSpeed = 6;
+
+static const CGFloat kPipeSpeed = 4;
+static const CGFloat kPipeWidth = 64;
+static const CGFloat kPipeGap = 130;
+static const CGFloat kPipeFrequency = 2;
+
+static const CGFloat randomFloat(CGFloat Min, CGFloat Max){
+  return floor(((arc4random() % RAND_MAX) / (RAND_MAX * 1.0)) * (Max - Min) + Min);
+}
 
 @implementation MainScene {
   Player *_player;
-
-  Obstacle *_pipeTop;
-  Obstacle *_pipeBottom;
-
   SKSpriteNode *_ground;
 }
 
 - (id)initWithSize:(CGSize)size
 {
   if (self = [super initWithSize:size]) {
-    [self setBackgroundColor:[SKColor colorWithWhite:.1 alpha:1]];
+    [self setBackgroundColor:[SKColor colorWithRed:.45 green:.77 blue:.81 alpha:1]];
 
     [self.physicsWorld setGravity:CGVectorMake(0, kGravity)];
     [self.physicsWorld setContactDelegate:self];
 
-    _ground = [SKSpriteNode spriteNodeWithColor:[SKColor brownColor] size:CGSizeMake(self.size.width, 64)];
+    _ground = [SKSpriteNode spriteNodeWithColor:[SKColor colorWithRed:.87 green:.84 blue:.59 alpha:1] size:CGSizeMake(self.size.width, 64)];
     [_ground setPosition:CGPointMake(self.size.width/2, _ground.size.height/2)];
     [self addChild:_ground];
 
@@ -47,7 +51,8 @@ static const CGFloat kObstacleSpeed = 6;
     [_ground.physicsBody setDynamic:NO];
 
     [self setupPlayer];
-    [self setupObstacle];
+
+    [NSTimer scheduledTimerWithTimeInterval:kPipeFrequency target:self selector:@selector(addObstacle) userInfo:nil repeats:YES];
   }
   return self;
 }
@@ -67,41 +72,47 @@ static const CGFloat kObstacleSpeed = 6;
   [_player.physicsBody setCollisionBitMask:kGroundCategory];
 }
 
-- (void)setupObstacle
+- (void)addObstacle
 {
-  _pipeTop = [Obstacle spriteNodeWithColor:[SKColor greenColor] size:CGSizeMake(64, 200)];
-  [_pipeTop setPosition:CGPointMake(self.size.width+(_pipeTop.size.width/2), self.size.height-(_pipeTop.size.height/2))];
-  [self addChild:_pipeTop];
+  CGFloat centerY = randomFloat(kPipeGap, self.size.height-kPipeGap);
+  CGFloat pipeTopHeight = centerY - (kPipeGap/2);
+  CGFloat pipeBottomHeight = self.size.height - (centerY + (kPipeGap/2));
 
-  _pipeTop.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:_pipeTop.size];
-  [_pipeTop.physicsBody setCategoryBitMask:kPipeCategory];
-  [_pipeTop.physicsBody setCollisionBitMask:0];
-  [_pipeTop.physicsBody setAffectedByGravity:NO];
+  // Top Pipe
+  Obstacle *pipeTop = [Obstacle spriteNodeWithColor:[SKColor colorWithRed:.34 green:.49 blue:.18 alpha:1] size:CGSizeMake(kPipeWidth, pipeTopHeight)];
+  [pipeTop setPosition:CGPointMake(self.size.width+(pipeTop.size.width/2), self.size.height-(pipeTop.size.height/2))];
+  [self addChild:pipeTop];
 
-  _pipeBottom = [Obstacle spriteNodeWithColor:[SKColor greenColor] size:CGSizeMake(64, 200)];
-  [_pipeBottom setPosition:CGPointMake(self.size.width+(_pipeBottom.size.width/2), (_pipeBottom.size.height/2))];
-  [self addChild:_pipeBottom];
+  pipeTop.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:pipeTop.size];
+  [pipeTop.physicsBody setCategoryBitMask:kPipeCategory];
+  [pipeTop.physicsBody setCollisionBitMask:0];
+  [pipeTop.physicsBody setAffectedByGravity:NO];
 
-  _pipeBottom.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:_pipeBottom.size];
-  [_pipeBottom.physicsBody setCategoryBitMask:kPipeCategory];
-  [_pipeBottom.physicsBody setCollisionBitMask:0];
-  [_pipeBottom.physicsBody setAffectedByGravity:NO];
+  // Bottom Pipe
+  Obstacle *pipeBottom = [Obstacle spriteNodeWithColor:[SKColor colorWithRed:.34 green:.49 blue:.18 alpha:1] size:CGSizeMake(kPipeWidth, pipeBottomHeight)];
+  [pipeBottom setPosition:CGPointMake(self.size.width+(pipeBottom.size.width/2), (pipeBottom.size.height/2))];
+  [self addChild:pipeBottom];
+
+  pipeBottom.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:pipeBottom.size];
+  [pipeBottom.physicsBody setCategoryBitMask:kPipeCategory];
+  [pipeBottom.physicsBody setCollisionBitMask:0];
+  [pipeBottom.physicsBody setAffectedByGravity:NO];
 
   // Move top pipe
-  SKAction *pipeTopAction = [SKAction moveToX:-(_pipeTop.size.width/2) duration:kObstacleSpeed];
+  SKAction *pipeTopAction = [SKAction moveToX:-(pipeTop.size.width/2) duration:kPipeSpeed];
   SKAction *pipeTopSequence = [SKAction sequence:@[pipeTopAction, [SKAction runBlock:^{
-    [_pipeTop setPosition:CGPointMake(self.size.width+(_pipeTop.size.width/2), self.size.height-(_pipeTop.size.height/2))];
+    [pipeTop removeFromParent];
   }]]];
 
-  [_pipeTop runAction:[SKAction repeatActionForever:pipeTopSequence]];
+  [pipeTop runAction:[SKAction repeatActionForever:pipeTopSequence]];
 
   // Move bottom pipe
-  SKAction *pipeBottomAction = [SKAction moveToX:-(_pipeBottom.size.width/2) duration:kObstacleSpeed];
+  SKAction *pipeBottomAction = [SKAction moveToX:-(pipeBottom.size.width/2) duration:kPipeSpeed];
   SKAction *pipeBottomSequence = [SKAction sequence:@[pipeBottomAction, [SKAction runBlock:^{
-    [_pipeBottom setPosition:CGPointMake(self.size.width+(_pipeBottom.size.width/2), (_pipeBottom.size.height/2))];
+    [pipeBottom removeFromParent];
   }]]];
 
-  [_pipeBottom runAction:[SKAction repeatActionForever:pipeBottomSequence]];
+  [pipeBottom runAction:[SKAction repeatActionForever:pipeBottomSequence]];
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
