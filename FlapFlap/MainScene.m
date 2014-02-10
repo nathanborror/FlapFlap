@@ -31,11 +31,15 @@ static const CGFloat randomFloat(CGFloat Min, CGFloat Max){
 @implementation MainScene {
   Player *_player;
   SKSpriteNode *_ground;
+  SKLabelNode *_scoreLabel;
+  NSInteger _score;
 }
 
 - (id)initWithSize:(CGSize)size
 {
   if (self = [super initWithSize:size]) {
+    _score = 0;
+
     [self setBackgroundColor:[SKColor colorWithRed:.45 green:.77 blue:.81 alpha:1]];
 
     [self.physicsWorld setGravity:CGVectorMake(0, kGravity)];
@@ -51,9 +55,15 @@ static const CGFloat randomFloat(CGFloat Min, CGFloat Max){
     [_ground.physicsBody setAffectedByGravity:NO];
     [_ground.physicsBody setDynamic:NO];
 
+    _scoreLabel = [[SKLabelNode alloc] initWithFontNamed:@"Helvetica"];
+    [_scoreLabel setPosition:CGPointMake(self.size.width/2, self.size.height-50)];
+    [_scoreLabel setText:[NSString stringWithFormat:@"%ld", (long)_score]];
+    [self addChild:_scoreLabel];
+
     [self setupPlayer];
 
     [NSTimer scheduledTimerWithTimeInterval:kPipeFrequency target:self selector:@selector(addObstacle) userInfo:nil repeats:YES];
+    [NSTimer scheduledTimerWithTimeInterval:kPipeFrequency target:self selector:@selector(startScoreTimer) userInfo:nil repeats:nil];
   }
   return self;
 }
@@ -118,6 +128,17 @@ static const CGFloat randomFloat(CGFloat Min, CGFloat Max){
   }]]];
 
   [pipeBottom runAction:[SKAction repeatActionForever:pipeBottomSequence]];
+}
+
+- (void)startScoreTimer
+{
+  [NSTimer scheduledTimerWithTimeInterval:kPipeFrequency target:self selector:@selector(incrementScore) userInfo:nil repeats:YES];
+}
+
+- (void)incrementScore
+{
+  _score++;
+  [_scoreLabel setText:[NSString stringWithFormat:@"%ld", (long)_score]];
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
