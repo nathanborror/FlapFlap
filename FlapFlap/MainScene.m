@@ -20,9 +20,11 @@ static const CGFloat kDensity = 1.15;
 static const CGFloat kMaxVelocity = 400;
 
 static const CGFloat kPipeSpeed = 4;
-static const CGFloat kPipeWidth = 64;
-static const CGFloat kPipeGap = 140;
+static const CGFloat kPipeWidth = 56.0;
+static const CGFloat kPipeGap = 130;
 static const CGFloat kPipeFrequency = 2;
+
+static const CGFloat kGroundHeight = 56.0;
 
 static const NSInteger kNumLevels = 20;
 
@@ -46,12 +48,22 @@ static const CGFloat randomFloat(CGFloat Min, CGFloat Max){
 
     srand((time(nil) % kNumLevels)*10000);
 
-    [self setBackgroundColor:[SKColor colorWithRed:.45 green:.77 blue:.81 alpha:1]];
+    [self setBackgroundColor:[SKColor colorWithRed:.69 green:.84 blue:.97 alpha:1]];
 
     [self.physicsWorld setGravity:CGVectorMake(0, kGravity)];
     [self.physicsWorld setContactDelegate:self];
 
-    _ground = [SKSpriteNode spriteNodeWithColor:[SKColor colorWithRed:.87 green:.84 blue:.59 alpha:1] size:CGSizeMake(self.size.width, 64)];
+    SKSpriteNode *cloud1 = [SKSpriteNode spriteNodeWithImageNamed:@"Cloud"];
+    [cloud1 setPosition:CGPointMake(100, self.size.height - (cloud1.size.height*3))];
+    [self addChild:cloud1];
+
+    SKSpriteNode *cloud2 = [SKSpriteNode spriteNodeWithImageNamed:@"Cloud"];
+    [cloud2 setPosition:CGPointMake(self.size.width - (cloud2.size.width/2) + 50, self.size.height - (cloud2.size.height*5))];
+    [self addChild:cloud2];
+
+    _ground = [SKSpriteNode spriteNodeWithImageNamed:@"Ground"];
+    [_ground setCenterRect:CGRectMake(26.0/kGroundHeight, 26.0/kGroundHeight, 4.0/kGroundHeight, 4.0/kGroundHeight)];
+    [_ground setXScale:self.size.width/kGroundHeight];
     [_ground setPosition:CGPointMake(self.size.width/2, _ground.size.height/2)];
     [self addChild:_ground];
 
@@ -97,7 +109,9 @@ static const CGFloat randomFloat(CGFloat Min, CGFloat Max){
   CGFloat pipeBottomHeight = self.size.height - (centerY + (kPipeGap/2));
 
   // Top Pipe
-  Obstacle *pipeTop = [Obstacle spriteNodeWithColor:[SKColor colorWithRed:.34 green:.49 blue:.18 alpha:1] size:CGSizeMake(kPipeWidth, pipeTopHeight)];
+  Obstacle *pipeTop = [Obstacle spriteNodeWithImageNamed:@"PipeTop"];
+  [pipeTop setCenterRect:CGRectMake(26.0/kPipeWidth, 26.0/kPipeWidth, 4.0/kPipeWidth, 4.0/kPipeWidth)];
+  [pipeTop setYScale:pipeTopHeight/kPipeWidth];
   [pipeTop setPosition:CGPointMake(self.size.width+(pipeTop.size.width/2), self.size.height-(pipeTop.size.height/2))];
   [self addChild:pipeTop];
 
@@ -109,8 +123,10 @@ static const CGFloat randomFloat(CGFloat Min, CGFloat Max){
   [pipeTop.physicsBody setCollisionBitMask:kPlayerCategory];
 
   // Bottom Pipe
-  Obstacle *pipeBottom = [Obstacle spriteNodeWithColor:[SKColor colorWithRed:.34 green:.49 blue:.18 alpha:1] size:CGSizeMake(kPipeWidth, pipeBottomHeight)];
-  [pipeBottom setPosition:CGPointMake(self.size.width+(pipeBottom.size.width/2), (pipeBottom.size.height/2))];
+  Obstacle *pipeBottom = [Obstacle spriteNodeWithImageNamed:@"PipeBottom"];
+  [pipeBottom setCenterRect:CGRectMake(26.0/kPipeWidth, 26.0/kPipeWidth, 4.0/kPipeWidth, 4.0/kPipeWidth)];
+  [pipeBottom setYScale:(pipeBottomHeight-kGroundHeight)/kPipeWidth];
+  [pipeBottom setPosition:CGPointMake(self.size.width+(pipeBottom.size.width/2), (pipeBottom.size.height/2)+(kGroundHeight-2))];
   [self addChild:pipeBottom];
 
   pipeBottom.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:pipeBottom.size];
