@@ -21,7 +21,7 @@ static const CGFloat kMaxVelocity = 400;
 
 static const CGFloat kPipeSpeed = 4;
 static const CGFloat kPipeWidth = 64;
-static const CGFloat kPipeGap = 130;
+static const CGFloat kPipeGap = 110;
 static const CGFloat kPipeFrequency = 2;
 
 static const CGFloat randomFloat(CGFloat Min, CGFloat Max){
