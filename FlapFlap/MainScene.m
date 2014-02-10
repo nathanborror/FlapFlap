@@ -24,7 +24,7 @@ static const CGFloat kPipeWidth = 64;
 static const CGFloat kPipeGap = 110;
 static const CGFloat kPipeFrequency = 2;
 
-static const int kNumLevels = 20;
+static const NSInteger kNumLevels = 20;
 
 static const CGFloat randomFloat(CGFloat Min, CGFloat Max){
   return floor(((rand() % RAND_MAX) / (RAND_MAX * 1.0)) * (Max - Min) + Min);
@@ -41,7 +41,7 @@ static const CGFloat randomFloat(CGFloat Min, CGFloat Max){
 
 - (id)initWithSize:(CGSize)size
 {
-  srand(time(NULL) % kNumLevels);
+  srand(time(nil) % kNumLevels);
   if (self = [super initWithSize:size]) {
     _score = 0;
 
