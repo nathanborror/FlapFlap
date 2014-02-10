@@ -7,6 +7,7 @@
 //
 
 #import "MainScene.h"
+#import "NewGameScene.h"
 #import "Player.h"
 #import "Obstacle.h"
 
@@ -69,7 +70,7 @@ static const CGFloat randomFloat(CGFloat Min, CGFloat Max){
 
   [_player.physicsBody setCategoryBitMask:kPlayerCategory];
   [_player.physicsBody setContactTestBitMask:kPipeCategory | kGroundCategory];
-  [_player.physicsBody setCollisionBitMask:kGroundCategory];
+  [_player.physicsBody setCollisionBitMask:kGroundCategory | kPipeCategory];
 }
 
 - (void)addObstacle
@@ -84,9 +85,11 @@ static const CGFloat randomFloat(CGFloat Min, CGFloat Max){
   [self addChild:pipeTop];
 
   pipeTop.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:pipeTop.size];
-  [pipeTop.physicsBody setCategoryBitMask:kPipeCategory];
-  [pipeTop.physicsBody setCollisionBitMask:0];
   [pipeTop.physicsBody setAffectedByGravity:NO];
+  [pipeTop.physicsBody setDynamic:NO];
+
+  [pipeTop.physicsBody setCategoryBitMask:kPipeCategory];
+  [pipeTop.physicsBody setCollisionBitMask:kPlayerCategory];
 
   // Bottom Pipe
   Obstacle *pipeBottom = [Obstacle spriteNodeWithColor:[SKColor colorWithRed:.34 green:.49 blue:.18 alpha:1] size:CGSizeMake(kPipeWidth, pipeBottomHeight)];
@@ -94,9 +97,11 @@ static const CGFloat randomFloat(CGFloat Min, CGFloat Max){
   [self addChild:pipeBottom];
 
   pipeBottom.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:pipeBottom.size];
-  [pipeBottom.physicsBody setCategoryBitMask:kPipeCategory];
-  [pipeBottom.physicsBody setCollisionBitMask:0];
   [pipeBottom.physicsBody setAffectedByGravity:NO];
+  [pipeBottom.physicsBody setDynamic:NO];
+
+  [pipeBottom.physicsBody setCategoryBitMask:kPipeCategory];
+  [pipeBottom.physicsBody setCollisionBitMask:kPlayerCategory];
 
   // Move top pipe
   SKAction *pipeTopAction = [SKAction moveToX:-(pipeTop.size.width/2) duration:kPipeSpeed];
@@ -124,6 +129,16 @@ static const CGFloat randomFloat(CGFloat Min, CGFloat Max){
 {
   if (_player.physicsBody.velocity.dy > kMaxVelocity) {
     [_player.physicsBody setVelocity:CGVectorMake(_player.physicsBody.velocity.dx, kMaxVelocity)];
+  }
+}
+
+- (void)didBeginContact:(SKPhysicsContact *)contact
+{
+  SKNode *node = contact.bodyA.node;
+  if ([node isKindOfClass:[Player class]]) {
+    SKTransition *transition = [SKTransition doorsCloseHorizontalWithDuration:.4];
+    NewGameScene *newGame = [[NewGameScene alloc] initWithSize:self.size];
+    [self.scene.view presentScene:newGame transition:transition];
   }
 }
 

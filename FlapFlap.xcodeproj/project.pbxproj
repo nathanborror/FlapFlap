@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		D891AAF018A701AD0067BB8C /* Player.m in Sources */ = {isa = PBXBuildFile; fileRef = D891AAEF18A701AD0067BB8C /* Player.m */; };
 		D891AAF318A701D40067BB8C /* Obstacle.m in Sources */ = {isa = PBXBuildFile; fileRef = D891AAF218A701D40067BB8C /* Obstacle.m */; };
+		D891AAF618A884D50067BB8C /* NewGameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = D891AAF518A884D50067BB8C /* NewGameScene.m */; };
 		D8FCAA7418A2BB6B004B93C1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8FCAA7318A2BB6B004B93C1 /* Foundation.framework */; };
 		D8FCAA7618A2BB6B004B93C1 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8FCAA7518A2BB6B004B93C1 /* CoreGraphics.framework */; };
 		D8FCAA7818A2BB6B004B93C1 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8FCAA7718A2BB6B004B93C1 /* UIKit.framework */; };
@@ -44,6 +45,8 @@
 		D891AAEF18A701AD0067BB8C /* Player.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Player.m; sourceTree = "<group>"; };
 		D891AAF118A701D40067BB8C /* Obstacle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Obstacle.h; sourceTree = "<group>"; };
 		D891AAF218A701D40067BB8C /* Obstacle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Obstacle.m; sourceTree = "<group>"; };
+		D891AAF418A884D50067BB8C /* NewGameScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewGameScene.h; sourceTree = "<group>"; };
+		D891AAF518A884D50067BB8C /* NewGameScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewGameScene.m; sourceTree = "<group>"; };
 		D8FCAA7018A2BB6B004B93C1 /* FlapFlap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FlapFlap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D8FCAA7318A2BB6B004B93C1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D8FCAA7518A2BB6B004B93C1 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -149,6 +152,8 @@
 				D8FCAAA318A2BB96004B93C1 /* ViewController.m */,
 				D8FCAAAA18A2BC1D004B93C1 /* MainScene.h */,
 				D8FCAAAB18A2BC1D004B93C1 /* MainScene.m */,
+				D891AAF418A884D50067BB8C /* NewGameScene.h */,
+				D891AAF518A884D50067BB8C /* NewGameScene.m */,
 				D8FCAABB18A2EA22004B93C1 /* Resources */,
 			);
 			path = FlapFlap;
@@ -291,6 +296,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D891AAF618A884D50067BB8C /* NewGameScene.m in Sources */,
 				D8FCAAA418A2BB96004B93C1 /* ViewController.m in Sources */,
 				D8FCAAAC18A2BC1D004B93C1 /* MainScene.m in Sources */,
 				D8FCAA8418A2BB6B004B93C1 /* AppDelegate.m in Sources */,
