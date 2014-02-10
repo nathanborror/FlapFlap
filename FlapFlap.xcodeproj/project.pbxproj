@@ -166,6 +166,7 @@
 				D8FCAAAB18A2BC1D004B93C1 /* MainScene.m */,
 				D891AAF418A884D50067BB8C /* NewGameScene.h */,
 				D891AAF518A884D50067BB8C /* NewGameScene.m */,
+				DC90501F18A88B2600AAA08A /* Sounds */,
 				D8FCAABB18A2EA22004B93C1 /* Resources */,
 			);
 			path = FlapFlap;
@@ -203,7 +204,6 @@
 		D8FCAABB18A2EA22004B93C1 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				DC90501F18A88B2600AAA08A /* Sounds */,
 				D8FCAAAD18A2C73D004B93C1 /* Exhaust.sks */,
 				D8FCAAAE18A2C73D004B93C1 /* spark.png */,
 				D8FCAAB718A2CEA1004B93C1 /* Spark.sks */,

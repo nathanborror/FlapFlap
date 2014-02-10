@@ -88,7 +88,6 @@ static const CGFloat randomFloat(CGFloat Min, CGFloat Max){
       
     _pipeSound = [SKAction playSoundFileNamed:@"pipe.mp3" waitForCompletion:NO];
     _punchSound = [SKAction playSoundFileNamed:@"punch3.mp3" waitForCompletion:NO];
-      
   }
   return self;
 }
