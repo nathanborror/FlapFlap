@@ -62,13 +62,14 @@ static const CGFloat randomFloat(CGFloat Min, CGFloat Max){
 
     _scoreLabel = [[SKLabelNode alloc] initWithFontNamed:@"Helvetica"];
     [_scoreLabel setPosition:CGPointMake(self.size.width/2, self.size.height-50)];
-    [_scoreLabel setText:[NSString stringWithFormat:@"%ld", (long)_score]];
+    [_scoreLabel setText:[NSString stringWithFormat:@"%@", [NSNumber numberWithInteger:_score]]];
     [self addChild:_scoreLabel];
 
     [self setupPlayer];
 
-    _scoreTimer = [NSTimer scheduledTimerWithTimeInterval:kPipeFrequency target:self selector:@selector(startScoreTimer) userInfo:nil repeats:YES];
     _pipeTimer = [NSTimer scheduledTimerWithTimeInterval:kPipeFrequency target:self selector:@selector(addObstacle) userInfo:nil repeats:YES];
+
+    [NSTimer scheduledTimerWithTimeInterval:kPipeFrequency target:self selector:@selector(startScoreTimer) userInfo:nil repeats:NO];
   }
   return self;
 }
@@ -137,13 +138,13 @@ static const CGFloat randomFloat(CGFloat Min, CGFloat Max){
 
 - (void)startScoreTimer
 {
-  [NSTimer scheduledTimerWithTimeInterval:kPipeFrequency target:self selector:@selector(incrementScore) userInfo:nil repeats:YES];
+  _scoreTimer = [NSTimer scheduledTimerWithTimeInterval:kPipeFrequency target:self selector:@selector(incrementScore) userInfo:nil repeats:YES];
 }
 
 - (void)incrementScore
 {
   _score++;
-  [_scoreLabel setText:[NSString stringWithFormat:@"%ld", (long)_score]];
+  [_scoreLabel setText:[NSString stringWithFormat:@"%@", [NSNumber numberWithInteger:_score]]];
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
@@ -164,6 +165,7 @@ static const CGFloat randomFloat(CGFloat Min, CGFloat Max){
   if ([node isKindOfClass:[Player class]]) {
     [_pipeTimer invalidate];
     [_scoreTimer invalidate];
+
     SKTransition *transition = [SKTransition doorsCloseHorizontalWithDuration:.4];
     NewGameScene *newGame = [[NewGameScene alloc] initWithSize:self.size];
     [self.scene.view presentScene:newGame transition:transition];
