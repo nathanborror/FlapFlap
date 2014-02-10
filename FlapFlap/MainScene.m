@@ -21,7 +21,7 @@ static const CGFloat kMaxVelocity = 400;
 
 static const CGFloat kPipeSpeed = 4;
 static const CGFloat kPipeWidth = 64;
-static const CGFloat kPipeGap = 110;
+static const CGFloat kPipeGap = 140;
 static const CGFloat kPipeFrequency = 2;
 
 static const NSInteger kNumLevels = 20;
@@ -41,9 +41,10 @@ static const CGFloat randomFloat(CGFloat Min, CGFloat Max){
 
 - (id)initWithSize:(CGSize)size
 {
-  srand(time(nil) % kNumLevels);
   if (self = [super initWithSize:size]) {
     _score = 0;
+
+    srand((time(nil) % kNumLevels)*10000);
 
     [self setBackgroundColor:[SKColor colorWithRed:.45 green:.77 blue:.81 alpha:1]];
 
