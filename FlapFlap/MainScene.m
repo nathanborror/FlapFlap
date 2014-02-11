@@ -19,10 +19,10 @@ static const CGFloat kGravity = -10;
 static const CGFloat kDensity = 1.15;
 static const CGFloat kMaxVelocity = 400;
 
-static const CGFloat kPipeSpeed = 4;
+static const CGFloat kPipeSpeed = 3;
 static const CGFloat kPipeWidth = 56.0;
 static const CGFloat kPipeGap = 130;
-static const CGFloat kPipeFrequency = 2;
+static const CGFloat kPipeFrequency = 1.5;
 
 static const CGFloat kGroundHeight = 56.0;
 
@@ -94,7 +94,7 @@ static const CGFloat randomFloat(CGFloat Min, CGFloat Max){
 
 - (void)setupPlayer
 {
-  _player = [Player spriteNodeWithColor:[SKColor colorWithWhite:1 alpha:1] size:CGSizeMake(32, 32)];
+  _player = [Player spriteNodeWithImageNamed:@"Bird"];
   [_player setPosition:CGPointMake(self.size.width/2, self.size.height/2)];
   [self addChild:_player];
 
@@ -180,6 +180,9 @@ static const CGFloat randomFloat(CGFloat Min, CGFloat Max){
   if (_player.physicsBody.velocity.dy > kMaxVelocity) {
     [_player.physicsBody setVelocity:CGVectorMake(_player.physicsBody.velocity.dx, kMaxVelocity)];
   }
+
+  CGFloat rotation = ((_player.physicsBody.velocity.dy + kMaxVelocity) / (2*kMaxVelocity)) * M_2_PI;
+  [_player setZRotation:rotation-M_1_PI/2];
 }
 
 - (void)didBeginContact:(SKPhysicsContact *)contact
