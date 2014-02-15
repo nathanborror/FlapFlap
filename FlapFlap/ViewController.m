@@ -22,14 +22,14 @@
 
   [self.view setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
 
-  SKView *skView = (SKView *)[self view];
-  [skView setShowsFPS:YES];
-  [skView setShowsNodeCount:YES];
+  SKView *view = (SKView *)[self view];
+  [view setShowsFPS:YES];
+  [view setShowsNodeCount:YES];
 
-  SKScene *scene = [NewGameScene sceneWithSize:skView.bounds.size];
+  SKScene *scene = [NewGameScene sceneWithSize:view.bounds.size];
   [scene setScaleMode:SKSceneScaleModeAspectFill];
 
-  [skView presentScene:scene];
+  [view presentScene:scene];
 }
 
 @end

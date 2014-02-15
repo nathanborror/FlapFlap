@@ -7,7 +7,7 @@
 //
 
 #import "NewGameScene.h"
-#import "MainScene.h"
+#import "GameScene.h"
 
 @implementation NewGameScene {
   SKSpriteNode *_button;
@@ -28,8 +28,8 @@
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
   SKTransition *transition = [SKTransition doorsCloseHorizontalWithDuration:.4];
-  MainScene *main = [[MainScene alloc] initWithSize:self.size];
-  [self.scene.view presentScene:main transition:transition];
+  GameScene *game = [[GameScene alloc] initWithSize:self.size];
+  [self.scene.view presentScene:game transition:transition];
 }
 
 @end

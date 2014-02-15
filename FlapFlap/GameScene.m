@@ -1,28 +1,28 @@
 //
-//  MainScene.m
+//  GameScene.m
 //  FlapFlap
 //
 //  Created by Nathan Borror on 2/5/14.
 //  Copyright (c) 2014 Nathan Borror. All rights reserved.
 //
 
-#import "MainScene.h"
+#import "GameScene.h"
 #import "NewGameScene.h"
 #import "Player.h"
-#import "Obstacle.h"
+#import "Pipe.h"
 
 static const uint32_t kPlayerCategory = 0x1 << 0;
 static const uint32_t kPipeCategory = 0x1 << 1;
 static const uint32_t kGroundCategory = 0x1 << 2;
 
-static const CGFloat kGravity = -10;
+static const CGFloat kGravity = -9.5;
 static const CGFloat kDensity = 1.15;
 static const CGFloat kMaxVelocity = 400;
 
-static const CGFloat kPipeSpeed = 3;
+static const CGFloat kPipeSpeed = 3.5;
 static const CGFloat kPipeWidth = 56.0;
-static const CGFloat kPipeGap = 130;
-static const CGFloat kPipeFrequency = 1.5;
+static const CGFloat kPipeGap = 120;
+static const CGFloat kPipeFrequency = kPipeSpeed/2;
 
 static const CGFloat kGroundHeight = 56.0;
 
@@ -32,7 +32,7 @@ static const CGFloat randomFloat(CGFloat Min, CGFloat Max){
   return floor(((rand() % RAND_MAX) / (RAND_MAX * 1.0)) * (Max - Min) + Min);
 }
 
-@implementation MainScene {
+@implementation GameScene {
   Player *_player;
   SKSpriteNode *_ground;
   SKLabelNode *_scoreLabel;
@@ -114,7 +114,7 @@ static const CGFloat randomFloat(CGFloat Min, CGFloat Max){
   CGFloat pipeBottomHeight = self.size.height - (centerY + (kPipeGap/2));
 
   // Top Pipe
-  Obstacle *pipeTop = [Obstacle spriteNodeWithImageNamed:@"PipeTop"];
+  Pipe *pipeTop = [Pipe spriteNodeWithImageNamed:@"PipeTop"];
   [pipeTop setCenterRect:CGRectMake(26.0/kPipeWidth, 26.0/kPipeWidth, 4.0/kPipeWidth, 4.0/kPipeWidth)];
   [pipeTop setYScale:pipeTopHeight/kPipeWidth];
   [pipeTop setPosition:CGPointMake(self.size.width+(pipeTop.size.width/2), self.size.height-(pipeTop.size.height/2))];
@@ -128,7 +128,7 @@ static const CGFloat randomFloat(CGFloat Min, CGFloat Max){
   [pipeTop.physicsBody setCollisionBitMask:kPlayerCategory];
 
   // Bottom Pipe
-  Obstacle *pipeBottom = [Obstacle spriteNodeWithImageNamed:@"PipeBottom"];
+  Pipe *pipeBottom = [Pipe spriteNodeWithImageNamed:@"PipeBottom"];
   [pipeBottom setCenterRect:CGRectMake(26.0/kPipeWidth, 26.0/kPipeWidth, 4.0/kPipeWidth, 4.0/kPipeWidth)];
   [pipeBottom setYScale:(pipeBottomHeight-kGroundHeight)/kPipeWidth];
   [pipeBottom setPosition:CGPointMake(self.size.width+(pipeBottom.size.width/2), (pipeBottom.size.height/2)+(kGroundHeight-2))];

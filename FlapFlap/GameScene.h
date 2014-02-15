@@ -1,5 +1,5 @@
 //
-//  MainScene.h
+//  GameScene.h
 //  FlapFlap
 //
 //  Created by Nathan Borror on 2/5/14.
@@ -9,6 +9,6 @@
 #import <SpriteKit/SpriteKit.h>
 #import <AVFoundation/AVFoundation.h>
 
-@interface MainScene : SKScene <SKPhysicsContactDelegate>
+@interface GameScene : SKScene <SKPhysicsContactDelegate>
 
 @end

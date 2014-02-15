@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		D891AAF018A701AD0067BB8C /* Player.m in Sources */ = {isa = PBXBuildFile; fileRef = D891AAEF18A701AD0067BB8C /* Player.m */; };
-		D891AAF318A701D40067BB8C /* Obstacle.m in Sources */ = {isa = PBXBuildFile; fileRef = D891AAF218A701D40067BB8C /* Obstacle.m */; };
+		D891AAF318A701D40067BB8C /* Pipe.m in Sources */ = {isa = PBXBuildFile; fileRef = D891AAF218A701D40067BB8C /* Pipe.m */; };
 		D891AAF618A884D50067BB8C /* NewGameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = D891AAF518A884D50067BB8C /* NewGameScene.m */; };
 		D8FCAA7418A2BB6B004B93C1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8FCAA7318A2BB6B004B93C1 /* Foundation.framework */; };
 		D8FCAA7618A2BB6B004B93C1 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8FCAA7518A2BB6B004B93C1 /* CoreGraphics.framework */; };
@@ -24,7 +24,7 @@
 		D8FCAA9918A2BB6B004B93C1 /* FlapFlapTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D8FCAA9818A2BB6B004B93C1 /* FlapFlapTests.m */; };
 		D8FCAAA418A2BB96004B93C1 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D8FCAAA318A2BB96004B93C1 /* ViewController.m */; };
 		D8FCAAA618A2BBE0004B93C1 /* SpriteKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8FCAAA518A2BBE0004B93C1 /* SpriteKit.framework */; };
-		D8FCAAAC18A2BC1D004B93C1 /* MainScene.m in Sources */ = {isa = PBXBuildFile; fileRef = D8FCAAAB18A2BC1D004B93C1 /* MainScene.m */; };
+		D8FCAAAC18A2BC1D004B93C1 /* GameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = D8FCAAAB18A2BC1D004B93C1 /* GameScene.m */; };
 		D8FCAAAF18A2C73D004B93C1 /* Exhaust.sks in Resources */ = {isa = PBXBuildFile; fileRef = D8FCAAAD18A2C73D004B93C1 /* Exhaust.sks */; };
 		D8FCAAB018A2C73D004B93C1 /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = D8FCAAAE18A2C73D004B93C1 /* spark.png */; };
 		D8FCAAB818A2CEA1004B93C1 /* Spark.sks in Resources */ = {isa = PBXBuildFile; fileRef = D8FCAAB718A2CEA1004B93C1 /* Spark.sks */; };
@@ -48,8 +48,8 @@
 /* Begin PBXFileReference section */
 		D891AAEE18A701AD0067BB8C /* Player.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Player.h; sourceTree = "<group>"; };
 		D891AAEF18A701AD0067BB8C /* Player.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Player.m; sourceTree = "<group>"; };
-		D891AAF118A701D40067BB8C /* Obstacle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Obstacle.h; sourceTree = "<group>"; };
-		D891AAF218A701D40067BB8C /* Obstacle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Obstacle.m; sourceTree = "<group>"; };
+		D891AAF118A701D40067BB8C /* Pipe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Pipe.h; sourceTree = "<group>"; };
+		D891AAF218A701D40067BB8C /* Pipe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Pipe.m; sourceTree = "<group>"; };
 		D891AAF418A884D50067BB8C /* NewGameScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewGameScene.h; sourceTree = "<group>"; };
 		D891AAF518A884D50067BB8C /* NewGameScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewGameScene.m; sourceTree = "<group>"; };
 		D8FCAA7018A2BB6B004B93C1 /* FlapFlap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FlapFlap.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -71,8 +71,8 @@
 		D8FCAAA218A2BB96004B93C1 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		D8FCAAA318A2BB96004B93C1 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		D8FCAAA518A2BBE0004B93C1 /* SpriteKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SpriteKit.framework; path = System/Library/Frameworks/SpriteKit.framework; sourceTree = SDKROOT; };
-		D8FCAAAA18A2BC1D004B93C1 /* MainScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainScene.h; sourceTree = "<group>"; };
-		D8FCAAAB18A2BC1D004B93C1 /* MainScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainScene.m; sourceTree = "<group>"; };
+		D8FCAAAA18A2BC1D004B93C1 /* GameScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameScene.h; sourceTree = "<group>"; };
+		D8FCAAAB18A2BC1D004B93C1 /* GameScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameScene.m; sourceTree = "<group>"; };
 		D8FCAAAD18A2C73D004B93C1 /* Exhaust.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Exhaust.sks; sourceTree = "<group>"; };
 		D8FCAAAE18A2C73D004B93C1 /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
 		D8FCAAB718A2CEA1004B93C1 /* Spark.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Spark.sks; sourceTree = "<group>"; };
@@ -114,8 +114,8 @@
 			children = (
 				D891AAEE18A701AD0067BB8C /* Player.h */,
 				D891AAEF18A701AD0067BB8C /* Player.m */,
-				D891AAF118A701D40067BB8C /* Obstacle.h */,
-				D891AAF218A701D40067BB8C /* Obstacle.m */,
+				D891AAF118A701D40067BB8C /* Pipe.h */,
+				D891AAF218A701D40067BB8C /* Pipe.m */,
 			);
 			name = "Game Elements";
 			sourceTree = "<group>";
@@ -162,8 +162,8 @@
 				D8FCAA7A18A2BB6B004B93C1 /* Supporting Files */,
 				D8FCAAA218A2BB96004B93C1 /* ViewController.h */,
 				D8FCAAA318A2BB96004B93C1 /* ViewController.m */,
-				D8FCAAAA18A2BC1D004B93C1 /* MainScene.h */,
-				D8FCAAAB18A2BC1D004B93C1 /* MainScene.m */,
+				D8FCAAAA18A2BC1D004B93C1 /* GameScene.h */,
+				D8FCAAAB18A2BC1D004B93C1 /* GameScene.m */,
 				D891AAF418A884D50067BB8C /* NewGameScene.h */,
 				D891AAF518A884D50067BB8C /* NewGameScene.m */,
 				DC90501F18A88B2600AAA08A /* Sounds */,
@@ -326,10 +326,10 @@
 			files = (
 				D891AAF618A884D50067BB8C /* NewGameScene.m in Sources */,
 				D8FCAAA418A2BB96004B93C1 /* ViewController.m in Sources */,
-				D8FCAAAC18A2BC1D004B93C1 /* MainScene.m in Sources */,
+				D8FCAAAC18A2BC1D004B93C1 /* GameScene.m in Sources */,
 				D8FCAA8418A2BB6B004B93C1 /* AppDelegate.m in Sources */,
 				D8FCAA8018A2BB6B004B93C1 /* main.m in Sources */,
-				D891AAF318A701D40067BB8C /* Obstacle.m in Sources */,
+				D891AAF318A701D40067BB8C /* Pipe.m in Sources */,
 				D891AAF018A701AD0067BB8C /* Player.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -453,6 +453,8 @@
 				GCC_PREFIX_HEADER = "FlapFlap/FlapFlap-Prefix.pch";
 				INFOPLIST_FILE = "FlapFlap/FlapFlap-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -466,6 +468,8 @@
 				GCC_PREFIX_HEADER = "FlapFlap/FlapFlap-Prefix.pch";
 				INFOPLIST_FILE = "FlapFlap/FlapFlap-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

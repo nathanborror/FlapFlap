@@ -1,13 +1,15 @@
 //
-//  Obstacle.m
+//  Pipe.m
 //  FlapFlap
 //
 //  Created by Nathan Borror on 2/8/14.
 //  Copyright (c) 2014 Nathan Borror. All rights reserved.
 //
 
-#import "Obstacle.h"
+#import "Pipe.h"
 
-@implementation Obstacle
+@implementation Pipe
+
+
 
 @end

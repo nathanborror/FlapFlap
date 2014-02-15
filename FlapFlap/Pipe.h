@@ -1,5 +1,5 @@
 //
-//  Obstacle.h
+//  Pipe.h
 //  FlapFlap
 //
 //  Created by Nathan Borror on 2/8/14.
@@ -8,6 +8,6 @@
 
 #import <SpriteKit/SpriteKit.h>
 
-@interface Obstacle : SKSpriteNode
+@interface Pipe : SKSpriteNode
 
 @end
