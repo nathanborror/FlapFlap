@@ -20,7 +20,6 @@ static const CGFloat kDensity = 1.15;
 static const CGFloat kMaxVelocity = 400;
 
 static const CGFloat kPipeSpeed = 3.5;
-static const CGFloat kPipeWidth = 56.0;
 static const CGFloat kPipeGap = 120;
 static const CGFloat kPipeFrequency = kPipeSpeed/2;
 
@@ -111,42 +110,23 @@ static const CGFloat randomFloat(CGFloat Min, CGFloat Max){
 {
   CGFloat centerY = randomFloat(kPipeGap, self.size.height-kPipeGap);
   CGFloat pipeTopHeight = centerY - (kPipeGap/2);
-  CGFloat pipeBottomHeight = self.size.height - (centerY + (kPipeGap/2));
+  CGFloat pipeBottomHeight = (self.size.height - kGroundHeight) - (centerY + (kPipeGap/2));
 
   // Top Pipe
-  Pipe *pipeTop = [Pipe spriteNodeWithImageNamed:@"PipeTop"];
-  [pipeTop setCenterRect:CGRectMake(26.0/kPipeWidth, 26.0/kPipeWidth, 4.0/kPipeWidth, 4.0/kPipeWidth)];
-  [pipeTop setYScale:pipeTopHeight/kPipeWidth];
-  [pipeTop setPosition:CGPointMake(self.size.width+(pipeTop.size.width/2), self.size.height-(pipeTop.size.height/2))];
+  Pipe *pipeTop = [Pipe pipeWithHeight:pipeTopHeight withStyle:PipeStyleTop];
+  [pipeTop setPipeCategory:kPipeCategory playerCategory:kPlayerCategory];
   [self addChild:pipeTop];
 
-  pipeTop.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:pipeTop.size];
-  [pipeTop.physicsBody setAffectedByGravity:NO];
-  [pipeTop.physicsBody setDynamic:NO];
-
-  [pipeTop.physicsBody setCategoryBitMask:kPipeCategory];
-  [pipeTop.physicsBody setCollisionBitMask:kPlayerCategory];
-
   // Bottom Pipe
-  Pipe *pipeBottom = [Pipe spriteNodeWithImageNamed:@"PipeBottom"];
-  [pipeBottom setCenterRect:CGRectMake(26.0/kPipeWidth, 26.0/kPipeWidth, 4.0/kPipeWidth, 4.0/kPipeWidth)];
-  [pipeBottom setYScale:(pipeBottomHeight-kGroundHeight)/kPipeWidth];
-  [pipeBottom setPosition:CGPointMake(self.size.width+(pipeBottom.size.width/2), (pipeBottom.size.height/2)+(kGroundHeight-2))];
+  Pipe *pipeBottom = [Pipe pipeWithHeight:pipeBottomHeight withStyle:PipeStyleBottom];
+  [pipeBottom setPipeCategory:kPipeCategory playerCategory:kPlayerCategory];
   [self addChild:pipeBottom];
-
-  pipeBottom.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:pipeBottom.size];
-  [pipeBottom.physicsBody setAffectedByGravity:NO];
-  [pipeBottom.physicsBody setDynamic:NO];
-
-  [pipeBottom.physicsBody setCategoryBitMask:kPipeCategory];
-  [pipeBottom.physicsBody setCollisionBitMask:kPlayerCategory];
 
   // Move top pipe
   SKAction *pipeTopAction = [SKAction moveToX:-(pipeTop.size.width/2) duration:kPipeSpeed];
   SKAction *pipeTopSequence = [SKAction sequence:@[pipeTopAction, [SKAction runBlock:^{
     [pipeTop removeFromParent];
   }]]];
-
   [pipeTop runAction:[SKAction repeatActionForever:pipeTopSequence]];
 
   // Move bottom pipe
@@ -154,7 +134,6 @@ static const CGFloat randomFloat(CGFloat Min, CGFloat Max){
   SKAction *pipeBottomSequence = [SKAction sequence:@[pipeBottomAction, [SKAction runBlock:^{
     [pipeBottom removeFromParent];
   }]]];
-
   [pipeBottom runAction:[SKAction repeatActionForever:pipeBottomSequence]];
 }
 
