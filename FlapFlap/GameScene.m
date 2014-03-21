@@ -20,7 +20,7 @@ static const CGFloat kDensity = 1.15;
 static const CGFloat kMaxVelocity = 400;
 
 static const CGFloat kPipeSpeed = 3.5;
-static const CGFloat kPipeGap = 120;
+static const CGFloat kPipeGap = 60;
 static const CGFloat kPipeFrequency = kPipeSpeed/2;
 
 static const CGFloat kGroundHeight = 56.0;
@@ -64,7 +64,6 @@ static const CGFloat randomFloat(CGFloat Min, CGFloat Max){
 
     _ground = [SKSpriteNode spriteNodeWithImageNamed:@"Ground"];
     [_ground setCenterRect:CGRectMake(26.0/kGroundHeight, 26.0/kGroundHeight, 4.0/kGroundHeight, 4.0/kGroundHeight)];
-    [_ground setXScale:self.size.width/kGroundHeight];
     [_ground setPosition:CGPointMake(self.size.width/2, _ground.size.height/2)];
     [self addChild:_ground];
 
@@ -73,6 +72,8 @@ static const CGFloat randomFloat(CGFloat Min, CGFloat Max){
     [_ground.physicsBody setCollisionBitMask:kPlayerCategory];
     [_ground.physicsBody setAffectedByGravity:NO];
     [_ground.physicsBody setDynamic:NO];
+
+    [_ground setXScale:self.size.width/kGroundHeight];
 
     _scoreLabel = [[SKLabelNode alloc] initWithFontNamed:@"Helvetica"];
     [_scoreLabel setPosition:CGPointMake(self.size.width/2, self.size.height-50)];
@@ -109,8 +110,8 @@ static const CGFloat randomFloat(CGFloat Min, CGFloat Max){
 - (void)addObstacle
 {
   CGFloat centerY = randomFloat(kPipeGap, self.size.height-kPipeGap);
-  CGFloat pipeTopHeight = centerY - (kPipeGap/2);
-  CGFloat pipeBottomHeight = (self.size.height - kGroundHeight) - (centerY + (kPipeGap/2));
+  CGFloat pipeTopHeight = centerY - kPipeGap;
+  CGFloat pipeBottomHeight = self.size.height - (centerY + kPipeGap);
 
   // Top Pipe
   Pipe *pipeTop = [Pipe pipeWithHeight:pipeTopHeight withStyle:PipeStyleTop];
