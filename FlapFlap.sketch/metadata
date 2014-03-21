@@ -3,11 +3,15 @@
 <plist version="1.0">
 <dict>
 	<key>app</key>
-	<string>com.bohemiancoding.sketch</string>
+	<string>com.bohemiancoding.sketch.beta</string>
 	<key>build</key>
-	<integer>5302</integer>
+	<integer>5347</integer>
 	<key>commit</key>
-	<string>9460a4bc62af5e9ba50dd4143578fd9401710ce5</string>
+	<string>9c36051e8fd492279e960780830d475c5696520c</string>
+	<key>fonts</key>
+	<array/>
+	<key>length</key>
+	<integer>619933</integer>
 	<key>version</key>
 	<integer>18</integer>
 </dict>
